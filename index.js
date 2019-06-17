@@ -33,10 +33,95 @@
 //来用canvas来做
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
+autoSetCanvasSize(canvas)
 
+
+
+var using = false
+var lastPoint={x:undefined,y:undefined}
+listenToMouse(canvas)
+
+
+
+// 所有实践的封装
+function listenToMouse(canvas){
+    canvas.onmousedown=function(event){
+        var x = event.clientX
+        var y = event.clientY
+        // drawCircle(x,y,5)
+        using=true
+        if (eraserEnabled) {
+           
+            context.clearRect(x-5,y-5,10,10)
+        } else {
+            lastPoint={x:x,y:y}
+        }
+    }
+    canvas.onmousemove=function(event){
+        var x = event.clientX
+        var y = event.clientY  
+        if (eraserEnabled) {
+            if (using) {
+                context.clearRect(x-5,y-5,10,10)
+            }
+        } 
+        else {
+            if (using) {
+                var newPoint={
+                    x:x,
+                    y:y
+                }
+                drawLine(lastPoint.x,lastPoint.y,newPoint.x,newPoint.y)
+                lastPoint=newPoint
+            }
+        }
+    }
+    
+    canvas.onmouseup=function(event){
+        using=false
+    }
+    
+}
 
 function drawCircle(x,y,radius){
     context.beginPath()
+    context.fillStyle='black'
     context.arc(x,y,radius,0,Math.PI*2)
+    context.fill()
+}
+function drawLine(x1,y1,x2,y2){
+    context.beginPath()
+    context.strokeStyle='black'
+    context.moveTo(x1,y1)
+    context.lineWidth = 5
+    context.lineTo(x2,y2)
     context.stroke()
+    context.closePath()
+}
+
+//全屏问题
+function autoSetCanvasSize(canvas){
+    setCanvasSize()
+    window.onresize=function(){
+    setCanvasSize()
+    }
+    function setCanvasSize (event){
+        var pageWidth=document.documentElement.clientWidth
+        var pageHeight=document.documentElement.clientHeight
+        canvas.width=pageWidth
+        canvas.height=pageWidth
+    }
+}
+
+
+//橡皮擦
+var eraserEnabled=false
+eraser.onclick=function(){
+    eraserEnabled=true
+    actions.className='actions x'
+}
+brush.onclick=function(){
+   eraserEnabled=false
+   actions.className='actions '
+
 }

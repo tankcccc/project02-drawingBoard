@@ -8,17 +8,24 @@
 </head>
     <link rel="stylesheet" href="./reset.css">
     <link rel="stylesheet" href="./style.css">
-
-<style>
-   
-</style>
 <body>
    <canvas id="canvas"></canvas>
+   
    <div class="actions" id="actions">
-       <button id="eraser">橡皮擦</button>
-       <button id="brush">画笔</button>
+        <img src="./img/pen.png" id="pen" class="active">
+        <img src="./img/Eraser-Tool.png" id="eraser">
+        <img src="./img/clear.png" class="clear" id="clear">
+        <img src="./img/下载-wps图片.png" class="download" id="download">
+       <!-- <button id="eraser">橡皮擦</button>
+       <button id="brush">画笔</button> -->
    </div>
-  
+   <ol class="colors">
+        <li id="red" class="red active" ></li>
+        <li id="green" class="green"></li>
+        <li id="blue" class="blue"></li>
+    </ol>
+   
+
 </body>
 <script src="./index.js"></script>
 </html>

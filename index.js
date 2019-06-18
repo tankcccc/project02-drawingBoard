@@ -84,15 +84,15 @@ if (document.body.ontouchstart !== undefined) {
 
 function drawCircle(x,y,radius){
     context.beginPath()
-    context.fillStyle='black'
+    // context.fillStyle='black'
     context.arc(x,y,radius,0,Math.PI*2)
     context.fill()
 }
 function drawLine(x1,y1,x2,y2){
     context.beginPath()
-    context.strokeStyle='black'
+    // context.strokeStyle='black'
     context.moveTo(x1,y1)
-    context.lineWidth = 5
+    context.lineWidth =3
     context.lineTo(x2,y2)
     context.stroke()
     context.closePath()
@@ -154,12 +154,49 @@ function listenToMouse(canvas){
 
 //橡皮擦
 var eraserEnabled=false
+pen.onclick=function(){
+    eraserEnabled=false
+    pen.classList.add('active')
+    eraser.classList.remove('active')
+}
 eraser.onclick=function(){
     eraserEnabled=true
-    actions.className='actions x'
+    eraser.classList.add('active')
+    pen.classList.remove('active')
 }
-brush.onclick=function(){
-   eraserEnabled=false
-   actions.className='actions '
 
+//变颜色
+red.onclick=function(){
+    context.fillStyle='red'
+    context.strokeStyle='red'
+    red.classList.add('active')
+    green.classList.remove('active')
+    blue.classList.remove('active')
+}
+green.onclick=function(){
+    context.fillStyle='green'
+    context.strokeStyle='green'
+    green.classList.add('active')
+    red.classList.remove('active')
+    blue.classList.remove('active')
+}
+blue.onclick=function(){
+    context.fillStyle='blue'
+    context.strokeStyle='blue'
+    blue.classList.add('active')
+    red.classList.remove('active')
+    green.classList.remove('active')
+}
+//清空
+clear.onclick=function(){
+    context.clearRect(0, 0, canvas.width, canvas.height);
+}
+//下载
+download.onclick=function(){
+    var url=canvas.toDataURL('imgage/png')
+    var a =document.createElement('a')
+    document.body.appendChild(a)
+    a.href=url
+    a.download='我的画'
+    a.click()
 }

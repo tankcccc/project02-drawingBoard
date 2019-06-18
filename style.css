@@ -1,12 +1,16 @@
+
 #canvas{
+   
     background: green;
-    /* display: block; */
+    display: block;
+    height: 100%;
 }
 body{
   margin: 0px;
 }
 
 html{
+    overflow-x: hidden;
 }
 .actions{
     position: fixed;
